@@ -106,6 +106,7 @@ body {
   gap: 5px;
   width: min(350px, calc(100vw - 40px));
   height: min(420px, calc(100vw - 40px) * 1.2);
+  perspective: 250px;
 }
 
 .row {
@@ -126,6 +127,8 @@ body {
   background: transparent;
   user-select: none;
   position: relative;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
 }
 
 .tile[data-state="tbd"] {

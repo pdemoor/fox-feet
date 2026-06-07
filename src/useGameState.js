@@ -139,7 +139,9 @@ export function useGameState(hardMode) {
     const newLetterStates = computeLetterStates(newGuesses, todayWord);
 
     setGuesses(newGuesses);
-    setLetterStates(newLetterStates);
+    // Delay keyboard colour update until the last tile's flip completes
+    // (4 tiles × 100ms stagger + 500ms flip = 900ms → round to 1000ms)
+    setTimeout(() => setLetterStates(newLetterStates), 1000);
     setCurrentGuess('');
 
     const won = result.every(r => r === 'correct');
