@@ -10,13 +10,11 @@ export default function StatsModal({ stats, gameStatus, guesses, onClose }) {
     const CORRECT = '🟩';
     const PRESENT = '🟨';
     const ABSENT  = '⬜';
-    const THIN_SPACE = ' ';
-
     const formattedNumber = puzzleNumber.toLocaleString('en-US');
     const header = `FoxFeet ${formattedNumber} ${gameStatus === 'won' ? guesses.length : 'X'}/6`;
     const rows = guesses.map(g =>
       g.result.map(r => r === 'correct' ? CORRECT : r === 'present' ? PRESENT : ABSENT)
-              .join(THIN_SPACE)
+              .join('')
     ).join('\n');
     return `${header}\n\n${rows}`;
   }
