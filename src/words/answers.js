@@ -242,6 +242,12 @@ function getLocalDayIndex() {
   return Math.floor((today - start) / msPerDay);
 }
 
+// Anchor: NYT Wordle #1814 (June 7 2026) = THUMB = answers[115]
+// todayIndex on that date = 1813 (0-based, start June 20 2021)
+// offset = 115 - 1813 = -1698
+// Applied only to the word lookup so puzzleNumber stays correct.
+const NYT_OFFSET = answers.indexOf('thumb') - 1813; // -1698
+
 export const todayIndex   = getLocalDayIndex();
 export const puzzleNumber = todayIndex + 1;
-export const todayWord    = answers[todayIndex % answers.length];
+export const todayWord    = answers[((todayIndex + NYT_OFFSET) % answers.length + answers.length) % answers.length];
