@@ -7,9 +7,16 @@ export default function StatsModal({ stats, gameStatus, guesses, onClose }) {
   const wonGuessCount = gameStatus === 'won' ? guesses.length : null;
 
   function buildShareText() {
-    const header = `Fox Feet #${puzzleNumber} ${gameStatus === 'won' ? guesses.length : 'X'}/6`;
+    const CORRECT = '🟩';
+    const PRESENT = '🟨';
+    const ABSENT  = '⬜';
+    const THIN_SPACE = ' ';
+
+    const formattedNumber = puzzleNumber.toLocaleString('en-US');
+    const header = `FoxFeet ${formattedNumber} ${gameStatus === 'won' ? guesses.length : 'X'}/6`;
     const rows = guesses.map(g =>
-      g.result.map(r => r === 'correct' ? '🟩' : r === 'present' ? '🟨' : '⬛').join('')
+      g.result.map(r => r === 'correct' ? CORRECT : r === 'present' ? PRESENT : ABSENT)
+              .join(THIN_SPACE)
     ).join('\n');
     return `${header}\n\n${rows}`;
   }
