@@ -232,10 +232,16 @@ export const answers = [
   "unlit","vomit","fanny","fetus","butch","stalk","flack","widow","augur"
 ];
 
-const START_DATE = new Date(2021, 5, 19); // June 19 2021 = puzzle #1
-const today = new Date();
-today.setHours(0, 0, 0, 0);
-const dayNum = Math.floor((today - START_DATE) / 86400000);
-export const todayIndex = dayNum;
-export const todayWord = answers[dayNum % answers.length];
-export const puzzleNumber = dayNum + 1;
+function getLocalDayIndex() {
+  // Use local year/month/day only — never UTC — so players in any
+  // timezone see the same puzzle number as their local calendar date.
+  const now = new Date();
+  const start = new Date(2021, 5, 20); // June 20 2021 = puzzle #1, local midnight
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const msPerDay = 24 * 60 * 60 * 1000;
+  return Math.floor((today - start) / msPerDay);
+}
+
+export const todayIndex   = getLocalDayIndex();
+export const puzzleNumber = todayIndex + 1;
+export const todayWord    = answers[todayIndex % answers.length];
